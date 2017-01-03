@@ -38,7 +38,7 @@ class Module extends \yii\base\Module
      */
     protected function registerTranslations()
     {
-        ///[Yii2 setting:i18n]
+        ///[i18n]
         ///if no setup the component i18n, use setup in this module.
         if (!isset(Yii::$app->i18n->translations['extensions/yongtiger/yii2-setting/*']) && !isset(Yii::$app->i18n->translations['extensions/yongtiger/yii2-setting'])) {
             Yii::$app->i18n->translations['extensions/yongtiger/yii2-setting/*'] = [
