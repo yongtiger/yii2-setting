@@ -1,0 +1,30 @@
+{
+    "name": "yongtiger/yii2-setting",
+    "description": "Simple and efficient setup. All settings are read from DB or cache into a static array at frontend. Updates specified setting category at backend.",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","setting","config","setup"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/yongtiger/yii2-setting/issues",
+        "forum": "http://www.yiiframework.com/forum/",
+        "source": "https://github.com/yongtiger/yii2-setting"
+    },
+    "authors": [
+        {
+            "name": "Yong Tiger",
+            "email": "tigeryang.brainbook@outlook.com",
+            "homepage": "http://www.branbook.cc/yongtiger"
+        }
+    ],
+    "homepage" : "http://www.branbook.cc",
+    "require": {
+        "php": ">=5.5",
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "yongtiger\\setting\\": "src"
+        }
+    }
+}
