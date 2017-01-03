@@ -1,4 +1,6 @@
-<?php
+<?php ///[i18n:Long Text Translation]
+///such as: 'Sorry, we are unable to reset password ...' => 'Sorry, we are unable to reset password for the provided email address.',
+
 /**
  * Message translations.
  *
@@ -16,6 +18,7 @@
  *
  * NOTE: this file must be saved in UTF-8 encoding.
  */
+
 return [
 
 ];
