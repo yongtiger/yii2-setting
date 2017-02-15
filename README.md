@@ -1,4 +1,4 @@
-# Yii2 Setting
+# Yii2 Setting release version 1.0.0
 
 Simple and efficient setup. All settings are read from DB or cache into a **static array** at frontend. Updates specified setting category at backend.
 
