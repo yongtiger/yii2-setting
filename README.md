@@ -8,7 +8,7 @@ Simple and efficient setup. All settings are read from DB or cache into a **stat
 [![License](https://poser.pugx.org/yongtiger/yii2-setting/license)](https://packagist.org/packages/yongtiger/yii2-setting)
 
 
-## Features
+## FEATURES
 
 * frontend and backend codes completely **separated**
 * settings **pre-stored** in DB
@@ -17,9 +17,9 @@ Simple and efficient setup. All settings are read from DB or cache into a **stat
 * displaying all setting items of the specified category by **URL route**
 * displaying a setting item according to the specified **input field type**
 
-## Dependences
+## DEPENDENCES
 
-## Installation   
+## INSTALLATION   
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
@@ -38,7 +38,7 @@ or add
 to the require section of your composer.json.
 
 
-## Configuration
+## CONFIGURATION
 
 
 ### Database migrations and customize settings
@@ -111,7 +111,7 @@ return [
 ];
 ```
 
-## Usage in frontend
+## USAGE IN FRONTEND
 
 > Note: Only `category`, `key`, `value` and `type` fields in the setting table are used in the frontend.
 
@@ -166,7 +166,7 @@ $mySetting = \yongtiger\setting\Setting::get('site', 'name');
 ``` 
 
 
-## Usage in backend
+## USAGE IN BACKEND
 
 You can access or update setting page by given the specified `category`:
 
