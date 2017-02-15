@@ -1,4 +1,4 @@
-# Yii2-setting
+# Yii2 Setting
 
 Simple and efficient setup. All settings are read from DB or cache into a **static array** at frontend. Updates specified setting category at backend.
 
@@ -17,6 +17,7 @@ Simple and efficient setup. All settings are read from DB or cache into a **stat
 * displaying all setting items of the specified category by **URL route**
 * displaying a setting item according to the specified **input field type**
 
+## Dependences
 
 ## Installation   
 
