@@ -76,7 +76,7 @@ class DefaultController extends Controller
                 $setting->save(false);  ///passing false as a parameter to save() to not run validation twice
             }
 
-            Yii::$app->session->setFlash('success', Module::t('setting', 'Update succeed.'));
+            Yii::$app->session->setFlash('success', Module::t('message', 'Update succeed.'));
             return $this->refresh();
         }
 

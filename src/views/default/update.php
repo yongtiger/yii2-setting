@@ -62,23 +62,23 @@ use yii\helpers\ArrayHelper;
             $field = $form->field($setting, "[$index]value")->checkboxList($setting['items'], $setting['options']);
             break;
         case SettingModel::INPUT_LISTBOX:                   ///sub-array nested
-            $setting['options'] = array_merge(['prompt' => Module::t('setting', 'Please select ...')], $setting['options']);
+            $setting['options'] = array_merge(['prompt' => Module::t('message', 'Please select ...')], $setting['options']);
             $field = $form->field($setting, "[$index]value")->listBox($setting['items'], $setting['options']);
             break;
         case SettingModel::INPUT_LISTBOX_MULTIPLE:          ///sub-array nested
             ///[Yii2 setting:multiple-select]
             $setting->value = json_decode($setting['value']);
-            $setting['options'] = array_merge(['prompt' => Module::t('setting', 'Please select ...'), 'multiple' => 'true'], $setting['options']);
+            $setting['options'] = array_merge(['prompt' => Module::t('message', 'Please select ...'), 'multiple' => 'true'], $setting['options']);
             $field = $form->field($setting, "[$index]value")->listBox($setting['items'], $setting['options']);
             break;
         case SettingModel::INPUT_DROPDOWNLIST:              ///sub-array nested
-            $setting['options'] = array_merge(['prompt' => Module::t('setting', 'Please select ...')], $setting['options']);
+            $setting['options'] = array_merge(['prompt' => Module::t('message', 'Please select ...')], $setting['options']);
             $field = $form->field($setting, "[$index]value")->dropDownList($setting['items'], $setting['options']);
             break;
         case SettingModel::INPUT_DROPDOWNLIST_MULTIPLE:     ///sub-array nested    ///same as INPUT_LISTBOX_MULTIPLE
             ///[Yii2 setting:multiple-select]
             $setting->value = json_decode($setting['value']);
-            $setting['options'] = array_merge(['prompt' => Module::t('setting', 'Please select ...'), 'multiple' => 'true'], $setting['options']);
+            $setting['options'] = array_merge(['prompt' => Module::t('message', 'Please select ...'), 'multiple' => 'true'], $setting['options']);
             $field = $form->field($setting, "[$index]value")->dropDownList($setting['items'], $setting['options']);
             break;
         default:
@@ -94,8 +94,8 @@ use yii\helpers\ArrayHelper;
     <?php } ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Module::t('setting', 'Update'),['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Module::t('setting', 'Reset'),['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(Module::t('message', 'Update'),['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Module::t('message', 'Reset'),['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
