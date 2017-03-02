@@ -24,19 +24,11 @@ class Module extends \yii\base\Module
      */
     public $controllerNamespace = 'yongtiger\setting\controllers';
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-        $this->registerTranslations();
-    }
-
+    ///[1.0.0 (i18n:public static function registerTranslation)]
     /**
      * Registers the translation files
      */
-    protected function registerTranslations()
+    public static function registerTranslations()
     {
         ///[i18n]
         ///if no setup the component i18n, use setup in this module.
@@ -46,7 +38,7 @@ class Module extends \yii\base\Module
                 'sourceLanguage' => 'en-US',
                 'basePath' => '@vendor/yongtiger/yii2-setting/src/messages',    ///default base path is '@vendor/yongtiger/yii2-setting/src/messages'
                 'fileMap' => [
-                    'extensions/yongtiger/yii2-setting/setting' => 'settings.php',  ///category in Module::t() is setting
+                    'extensions/yongtiger/yii2-setting/message' => 'message.php',  ///category in Module::t() is message
                 ],
             ];
         }
@@ -65,6 +57,7 @@ class Module extends \yii\base\Module
      */
     public static function t($category, $message, $params = [], $language = null)
     {
+        static::registerTranslations(); ///[1.0.0 (i18n:public static function registerTranslation)]
         return Yii::t('extensions/yongtiger/yii2-setting/' . $category, $message, $params, $language);
     }
 }

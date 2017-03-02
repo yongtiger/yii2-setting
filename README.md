@@ -1,4 +1,4 @@
-# Yii2 Setting release version 1.0.0
+# Yii2 Setting release version 1.0.1 (i18n:public static function registerTranslation)
 
 Simple and efficient setup. All settings are read from DB or cache into a **static array** at frontend. Updates specified setting category at backend.
 
@@ -189,5 +189,11 @@ See more advanced settings:
 - [`Using hint and hintOptions`](docs/using-hint-and-hintoptions.md)
 
 
-## License 
+## TODO
+
+
+## [Development roadmap](docs/development-roadmap.md)
+
+
+## LICENSE 
 **Yii2-setting** is released under the MIT license, see [LICENSE](https://opensource.org/licenses/MIT) file for details.
