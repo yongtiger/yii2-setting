@@ -6,7 +6,7 @@
  * @link        http://www.brainbook.cc
  * @see         https://github.com/yongtiger/yii2-setting
  * @author      Tiger Yong <tigeryang.brainbook@outlook.com>
- * @copyright   Copyright (c) 2016 BrainBook.CC
+ * @copyright   Copyright (c) 2017 BrainBook.CC
  * @license     http://opensource.org/licenses/MIT
  */
 
@@ -85,15 +85,15 @@ class Setting
      */
     public static function get($category, $key, $default = null)
     {
-        ///if self::$setting is null, indicates that the settings are not loaded. Then get self::$setting by calling static::loadSetting().
-        ///if self::$setting is empty and not null, indicates that the settings have already been loaded, but no record in db.
+        ///if `self::$setting` is null, indicates that the settings are not loaded. Then get `self::$setting` by calling `static::loadSetting()`.
+        ///if `self::$setting` is empty and not null, indicates that the settings have already been loaded, but no record in db.
         if (!isset(static::$setting)) {
             static::$setting = static::loadSetting();
         }
 
-        ///determines whether the element specified in the array self :: $ setting exists.
+        ///determines whether the element specified in the array `self::$setting` exists.
         ///returns the element if it is present, otherwise returns the default.
-        ///note: if self::$setting is null or empty array [], isset(static::$setting[$category][$key]) will return false.
+        ///note: if `self::$setting` is null or empty array [], `isset(static::$setting[$category][$key])` will return false.
         // return isset(static::$setting[$category][$key]) ? static::$setting[$category][$key] : $default;
         return isset(static::$setting[$category][$key]) ? static::convertType(static::$setting[$category][$key]['value'], static::$setting[$category][$key]['type']) : $default;
     }
@@ -130,7 +130,7 @@ class Setting
             ])->execute();
         }
 
-        ///if self::$enableCaching is true, and Yii::$app->cache is an instance object, and 
+        ///if `self::$enableCaching` is true, and `Yii::$app->cache` is an instance object, and 
         ///if there is a setting value in the cache, then clear it.
         if (static::$enableCaching && is_object(Yii::$app->cache) &&
             ($setting = Yii::$app->cache->get('setting')) !== false) {
@@ -171,7 +171,7 @@ class Setting
             'category'
         );
 
-        ///if self::$enableCaching is true, and Yii::$app->cache is an instance object, then save setting to cache.
+        ///if `self::$enableCaching` is true, and `Yii::$app->cache` is an instance object, then save setting to cache.
         if (static::$enableCaching && is_object(Yii::$app->cache)) {
             Yii::$app->cache->set('setting', $setting);  ///if no setting record in db, the content of cache file will be: 'a:2:{i:0;a:0:{}i:1;N;}'
         }

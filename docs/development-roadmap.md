@@ -1,5 +1,8 @@
 # Development roadmap
 
+## 1.1.0 (ADD# public static function set)
+
+
 ## 1.0.1 (i18n:public static function registerTranslation)
 
 

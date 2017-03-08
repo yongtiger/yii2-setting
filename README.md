@@ -1,4 +1,4 @@
-# Yii2 Setting release version 1.0.1 (i18n:public static function registerTranslation)
+# Yii2 Setting release version 1.1.0 (ADD# public static function set)
 
 Simple and efficient setup. All settings are read from DB or cache into a **static array** at frontend. Updates specified setting category at backend.
 
