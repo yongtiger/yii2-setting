@@ -24,7 +24,7 @@ class Module extends \yii\base\Module
      */
     public $controllerNamespace = 'yongtiger\setting\controllers';
 
-    ///[1.0.0 (i18n:public static function registerTranslation)]
+    ///[1.0.1 (i18n:public static function registerTranslation)]
     /**
      * Registers the translation files
      */
@@ -57,7 +57,7 @@ class Module extends \yii\base\Module
      */
     public static function t($category, $message, $params = [], $language = null)
     {
-        static::registerTranslations(); ///[1.0.0 (i18n:public static function registerTranslation)]
+        static::registerTranslations(); ///[1.0.1 (i18n:public static function registerTranslation)]
         return Yii::t('extensions/yongtiger/yii2-setting/' . $category, $message, $params, $language);
     }
 }
