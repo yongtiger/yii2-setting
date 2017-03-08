@@ -16,11 +16,13 @@ use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
- * Frontend setting
+ * Class Setting
  *
  * Only for the frontend settings!
  * The first time to read settings, read the database settings table into the cache if the cache, and then read directly from the cache later.
  * To improve efficiency, use static array to storage settings.
+ *
+ * Note: If it needs to be run before the application instantiates initialization, you have to load cache and db with Yii::$container, not Yii::$app->cache.    ///???
  *
  * @package yongtiger\setting
  */
@@ -73,15 +75,13 @@ class Setting
     const TYPE_OBJECT = 'object';
 
     /**
-     * Gets the settings for the specified category and key
+     * Gets the setting value for the specified category and key
      *
      * @param string $category
      * @param string $key
      * @param string $default
      *
      * @return array
-     *
-     * If it needs to be run before the application instantiates initialization, you have to load cache and db with Yii::$container, not Yii::$app->cache.
      */
     public static function get($category, $key, $default = null)
     {
@@ -99,7 +99,47 @@ class Setting
     }
 
     /**
-     * Load setting
+     * Sets the setting value for the specified category and key
+     *
+     * @param string $category
+     * @param string $key
+     * @param mix $value
+     */
+    public static function set($category, $key, $value)
+    {
+        $type = static::getType($value);
+        $value = static::convertValueToString($value);
+
+        ///read from setting table
+        ///if no setting record in db, return empty array [].
+        $result = Yii::$app->db->createCommand("SELECT `id` FROM " . static::$tableName . " where `category`='$category' and `key`='$key'")->queryOne();
+
+        if ($result) {
+            Yii::$app->db->createCommand()->update(static::$tableName, [
+                'category' => $category,
+                'key' => $key,
+                'value' => $value,
+                'type' => $type,
+            ], '`id` = ' . $result['id'])->execute();
+        } else {
+            Yii::$app->db->createCommand()->insert(static::$tableName, [
+                'category' => $category,
+                'key' => $key,
+                'value' => $value,
+                'type' => $type,
+            ])->execute();
+        }
+
+        ///if self::$enableCaching is true, and Yii::$app->cache is an instance object, and 
+        ///if there is a setting value in the cache, then clear it.
+        if (static::$enableCaching && is_object(Yii::$app->cache) &&
+            ($setting = Yii::$app->cache->get('setting')) !== false) {
+            Yii::$app->cache->delete('setting');    ///???need to clear cache in both frontend and backend!!!
+        }
+    }
+
+    /**
+     * Loads setting
      *
      * @return array
      *
@@ -113,7 +153,7 @@ class Setting
         if (static::$enableCaching && is_object(Yii::$app->cache) &&
             ($setting = Yii::$app->cache->get('setting')) !== false) {
             return $setting;
-    	}
+        }
 
         ///read from setting table
         ///if no setting record in db, return empty array [].
@@ -133,22 +173,21 @@ class Setting
 
         ///if self::$enableCaching is true, and Yii::$app->cache is an instance object, then save setting to cache.
         if (static::$enableCaching && is_object(Yii::$app->cache)) {
-            Yii::$app->cache->set('setting', $setting);	 ///if no setting record in db, the content of cache file will be: 'a:2:{i:0;a:0:{}i:1;N;}'
+            Yii::$app->cache->set('setting', $setting);  ///if no setting record in db, the content of cache file will be: 'a:2:{i:0;a:0:{}i:1;N;}'
         }
 
         return $setting;
     }
 
     /**
-     * Data type
+     * Converts a string type value to the given type
      *
      * @param string $value
      * @param int $type
      *
-     * @return mixed
-     *
+     * @return mixed|false
      */
-    public static function convertType($value, $type = null){
+    public static function convertType($value, $type = null) {
         if(!isset($type)) return $value;
 
         switch ($type){
@@ -161,16 +200,64 @@ class Setting
         case static::TYPE_BOOLEAN:
             return (boolean)$value;
         case static::TYPE_ARRAY:
-            ///array without key: '["age",1]', '["name",1,["age",1]]', '["name",1,["age",{"0":1,"age":18}]]'
-            ///array with a key: '{"0":1,"age":18}', '{"0":1,"age":["name",1,["age",{"0":1,"age":18}]]}'    ///numeric key is NOT recommended!
-            ///inner object will NOT be converted to array!
-            return (array)json_decode($value);
+            return unserialize($value);
         case static::TYPE_OBJECT:
-            ///'{"0":1,"age":18}', '{"0":1,"age":["name",1,["age",{"0":1,"age":18}]]}'  ///numeric property name is NOT recommended!
-            ///inner array will NOT be converted to object!
-            return (object)json_decode($value);
+            return unserialize($value);
         default:
+            return false;
+        }
+    }
+
+    /**
+     * Gets value type
+     *
+     * @param mix $value
+     *
+     * @return string|false
+     */
+    public static function getType($value) {
+        if (is_string($value)) {
+            return static::TYPE_STRING;
+        } else if (is_integer($value)) {
+            return static::TYPE_INTEGER;
+        } else if (is_float($value)) {
+            return static::TYPE_FLOAT;
+        } else if (is_bool($value)) {
+            return static::TYPE_BOOLEAN;
+        } else if (is_array($value)) {
+            return static::TYPE_ARRAY;
+        } else if (is_object($value)) {
+            return static::TYPE_OBJECT;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Converts given value to string
+     *
+     * @param mix $value
+     *
+     * @return string|false
+     */
+    public static function convertValueToString($value) {
+        $type = getType($value);
+
+        switch ($type){
+        case static::TYPE_STRING:
             return $value;
+        case static::TYPE_INTEGER:
+            return (string)$value;
+        case static::TYPE_FLOAT:
+            return (string)$value;
+        case static::TYPE_BOOLEAN:
+            return (string)$value;
+        case static::TYPE_ARRAY:
+            return serialize($value);
+        case static::TYPE_OBJECT:
+            return serialize($value);
+        default:
+            return false;
         }
     }
 }
