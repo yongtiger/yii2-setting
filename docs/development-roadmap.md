@@ -1,5 +1,8 @@
 # Development roadmap
 
+## 1.1.1 (FIX# i18n:long text translation)
+
+
 ## 1.1.0 (ADD# public static function set)
 
 
