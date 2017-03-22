@@ -1,5 +1,12 @@
 # Development roadmap
 
+## 1.2.0 (CHG# tableName)
+
+Changed file list:
+- `\Module.php`
+- `\models\SettingModel.php'
+
+
 ## 1.1.1 (FIX# i18n:long text translation)
 
 

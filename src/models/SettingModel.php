@@ -13,6 +13,8 @@
 namespace yongtiger\setting\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yongtiger\setting\Module;
 
 /**
  * This is the model class for table "setting".
@@ -31,7 +33,7 @@ use Yii;
 
 
  */
-class SettingModel extends \yii\db\ActiveRecord
+class SettingModel extends ActiveRecord
 {
     /**
      * Form input fields
@@ -60,7 +62,7 @@ class SettingModel extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%setting}}';
+        return Yii::$app->getModule('setting')->tableName;  ///[1.2.0 (CHG# tableName)]
     }
 
     /**
@@ -80,6 +82,6 @@ class SettingModel extends \yii\db\ActiveRecord
      */
     public static function findAllCategories()
     {
-        return static::find()->select('category')->from('setting')->groupBy('category')->orderBy('id')->all();
+        return static::find()->select('category')->from(static::tableName())->groupBy('category')->orderBy('id')->all();
     }
 }

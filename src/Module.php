@@ -24,6 +24,14 @@ class Module extends \yii\base\Module
      */
     public $controllerNamespace = 'yongtiger\setting\controllers';
 
+    ///[1.2.0 (CHG# tableName)]
+    /**
+     * Table name of setting
+     *
+     * @var string
+     */
+    public $tableName = '{{%setting}}';
+
     ///[1.0.1 (i18n:public static function registerTranslation)]
     /**
      * Registers the translation files

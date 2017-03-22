@@ -1,4 +1,4 @@
-# Yii2 Setting release version 1.1.1 (FIX# i18n:long text translation)
+# Yii2 Setting release version 1.2.0 (CHG# tableName)
 
 Simple and efficient setup. All settings are read from DB or cache into a **static array** at frontend. Updates specified setting category at backend.
 
