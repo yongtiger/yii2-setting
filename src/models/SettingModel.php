@@ -82,6 +82,6 @@ class SettingModel extends ActiveRecord
      */
     public static function findAllCategories()
     {
-        return static::find()->select('category')->from(static::tableName())->groupBy('category')->orderBy('id')->all();
+        return static::find()->select('category')->groupBy('category')->orderBy('id')->all();
     }
 }
