@@ -30,7 +30,7 @@ class Module extends \yii\base\Module
      *
      * @var string
      */
-    public $tableName = '{{%setting}}';
+    public $settingTableName = '{{%setting}}';
 
     ///[1.0.1 (i18n:public static function registerTranslation)]
     /**

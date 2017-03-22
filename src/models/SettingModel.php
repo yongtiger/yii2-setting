@@ -62,7 +62,7 @@ class SettingModel extends ActiveRecord
      */
     public static function tableName()
     {
-        return Yii::$app->getModule('setting')->tableName;  ///[1.2.0 (CHG# tableName)]
+        return Yii::$app->controller->module->settingTableName;  ///[1.2.0 (CHG# tableName)]
     }
 
     /**
